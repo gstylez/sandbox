@@ -9,6 +9,7 @@ const app = express();
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use('/static', express.static('public'));
 
 // Pug Preview
 app.set('view engine', 'pug');
