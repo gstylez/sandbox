@@ -31,7 +31,7 @@ router.post('/hello', (req, res) => {
 // Render Goodbye Route 'Post'
 router.post('/goodbye', (req, res) => {
 	res.clearCookie('username');
-	res.redirect('hello');
+	res.redirect('/hello');
 });
 
 module.exports = router;
