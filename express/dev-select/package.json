@@ -1,0 +1,32 @@
+{
+  "name": "dev-preview-selector",
+  "version": "1.0.0",
+  "description": "An app that let's a dev know that a specific dev preview branch is being used.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gstylez/sandbox.git"
+  },
+  "keywords": [
+    "dev",
+    "branches"
+  ],
+  "author": "Gstylez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gstylez/sandbox/issues"
+  },
+  "homepage": "https://github.com/gstylez/sandbox#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.4",
+    "mysql": "github:mysqljs/mysql",
+    "nodemon": "^1.11.0",
+    "pug": "^2.0.0-rc.3",
+    "sqlite3": "^3.1.9"
+  }
+}

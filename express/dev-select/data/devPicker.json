@@ -1,0 +1,37 @@
+{
+    "data": {
+        "title": "JavaScript Flashcards",
+        "cards": [
+            {
+                "branch": "Preview 1",
+                "username": "What language are Express apps written in?",
+                "hint": "It starts with a \"J\"",
+                "answer": "JavaScript"
+            },
+            {
+                "branch": "Preview 2",
+                "username": "What is one way a website can store data in a user's browser?",
+                "hint": "They are delicious with milk",
+                "answer": "Cookies"
+            },
+            {
+                "branch": "Preview 3",
+                "username": "What is a common way to shorten the response object's name inside middleware?",
+                "hint": "It has the same abbreviation as \"resolution\"",
+                "answer": "res"
+            },
+            {
+                "branch": "Preview 4",
+                "username": "How many different values can booleans have?",
+                "hint": "Think: binary",
+                "answer": "2"
+            },
+            {
+                "branch": "Preview 5",
+                "username": "Which HTML element can contain JavaScript?",
+                "hint": "It starts with an \"s\"",
+                "answer": "<script>"
+            }
+        ]
+    }
+}
