@@ -10,13 +10,27 @@ const mysql = require('mysql');
 
 var connection = mysql.createConnection({
   host     : 'localhost',
-  port     : '8889',
   user     : 'root',
-  password : 'root',
-  database : 'sampleDB'
+  password : 'password',
+  database : 'devpicker'
 });
-
 connection.connect();
+
+var picker = {
+  branch: 'Preview 1',
+  developer: 'Carlos',
+  active: '1',
+  expires: '2017-03-03'
+}
+
+var query = connection.query('insert into picker set ?', picker, function (err, result){
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.error(result);
+  // console.log(query.sql);
+});
 
 // connection.connect(function(err) {
 //   if(!!err) {
