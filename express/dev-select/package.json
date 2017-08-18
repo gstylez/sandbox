@@ -2,7 +2,7 @@
   "name": "dev-preview-selector",
   "version": "1.0.0",
   "description": "An app that let's a dev know that a specific dev preview branch is being used.",
-  "main": "app.js",
+  "main": "myapp.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
