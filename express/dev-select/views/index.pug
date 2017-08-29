@@ -7,8 +7,6 @@ html
 	table
 		for person in personList
 			tr
-				td= person.id
-				td
-					a(href='/person/'+person.id) #{person.name}
-				td= person.address
-				td= person.phone
+				td= person.branch
+				td= person.developer
+					//- a(href='/person/'+person.id) #{person.name}

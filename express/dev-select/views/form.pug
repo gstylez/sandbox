@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+  head
+    title Dev Preview Branches
+  body
+    h1 Preview Branches
+    //- form(method='post')
+    form(action='/form', method='post') 
+      select(name='id')
+        option -- select id --
+        option 1
+        option 2
+      select(name='named')
+        option -- select name --
+        option Carlos
+        option Jose
+      button(type='submit') Submit   

@@ -1,0 +1,187 @@
+----- ### SQL query
+
+-- Get all the information for a specific table i.e. books?
+SELECT * FROM books;
+
+-- SELECT <column> FROM <table>;
+SELECT id FROM books;
+
+-- SELECT <column> AS <alias> FROM <table>;
+SELECT title AS Title, first_published AS "First Published" FROM books;
+
+    -- without AS (not recommended)
+    SELECT title Title, first_published "First Published" FROM books;
+
+    -- multiple columns with AS (aliases)
+    SELECT home_team AS "Home Team", home_score AS "Home Score", away_team AS "Away Team", away_score AS "Away Score", played_on AS "Date Played" FROM results;
+
+-- Syntax depends on sql version
+    AS "First Published"
+    AS 'First Published'
+    AS [First Published]
+
+-- What are the titles and authors of the books in the library published in 1997?
+    --- SELECT <columns> FROM <table> WHERE <column> <operator> <value>;
+    SELECT title, author FROM books WHERE first_published = 1997;
+
+-- What are all the books authored by J.K. Rowling and what year were they first published?
+    --- SELECT <columns> FROM <table> WHERE <column> <operator> <value>;
+    SELECT title, first_published FROM books WHERE author = "J.K. Rowling";
+
+-- What books were not authored by J.K. Rowling?
+    --- SELECT <columns> FROM <table> WHERE <column> <operator> <value>;
+    SELECT title, author, first_published FROM books WHERE author != "J.K. Rowling";
+
+--- Relational Operators
+-- There are several relational operators you can use:
+--
+-- = equality ("Andrew" = "Andrew")
+-- != inequality ("Andrew" != "Lauren")
+-- < less than (1 < 40, 39 < 40)
+-- <= less than or equal to (1 <= 40, 40 <= 40)
+-- > greater than (100 > 40, 100 > 99)
+-- >= greater than or equal to (100 >= 99, 100 >= 100)
+
+    --  What books are in the library that were first published after the year 2005?
+    SELECT * FROM books WHERE first_published > 2005;
+
+    --  What books are in the library that were first published in 2005 or later?
+    SELECT * FROM books WHERE first_published >= 2005;
+
+    -- What are all books released before the 20th century?
+    SELECT * FROM books where first_published < 1900;
+
+
+-- SELECT <columns> FROM <table> WHERE <condition 1> AND/OR <condition 2>;
+
+    -- What books in our library were authored by J.K. Rowling before the year 2000?
+    SELECT title FROM books WHERE author = "J.K. Rowling" AND first_published < 2000;
+    -- What books were either authored by J.K. Rowling or published before thr year 2000?
+    SELECT title FROM books WHERE author = "J.K. Rowling" OR first_published < 2000;
+    -- What books do we have in the library authored by "Ernest Cline" or "Andy Weir"?
+    SELECT title FROM books WHERE author = "Ernest Cline" OR author = "Andy Weir";
+    SELECT title FROM books WHERE author = "Ernest Cline" AND author = "Andy Weir";    -- No results
+
+
+-- Syntax for using conidtions
+-- SELECT * FROM <table> WHERE <column> <operator> <value>;
+-- SELECT * FROM <table> WHERE <condition 1> OR <condition 2>;
+
+    -- What are all the loans that happened before December 13th 2015?
+    SELECT * FROM loans WHERE loaned_on <  "2015-12-13";
+    -- Imagine today is December 18th 2015. Which books are due back soon?
+    SELECT * FROM loans WHERE return_by > "2015-12-18";
+    -- Which users have the id of 1 or 3?
+    SELECT first_name, email FROM patrons WHERE id = 1 OR id = 3;
+
+
+-- Who are the people with the Library IDs of MCL1001, MCL1100 or MCL1011?
+
+    -- SELECT <columns> FROM <table> WHERE <condition 1> OR <condition 2> OR <condition 3>;
+    SELECT first_name, email FROM patrons WHERE library_id = "MCL1001" OR library_id = "MCL1100" OR library_id = "MCL1011";    -- long version
+
+    -- SELECT <columns> FROM <table> WHERE <column> IN (<value 1>, <value 2>, <value …>);
+    SELECT first_name, email FROM patrons WHERE library_id IN ("MCL1001", "MCL1100", "MCL1011");    -- simiplified version (IN)
+    SELECT first_name, email FROM patrons WHERE library_id NOT IN ("MCL1001", "MCL1100", "MCL1011");    -- simiplified version (NOT IN)
+
+
+-- Syntax for ranges
+-- SELECT <columns> FROM <table> WHERE <column> BETWEEN <value 1> AND <value 2>;
+
+    SELECT title, author FROM books WHERE first_published >= 1800 AND first_published <= 1899;
+    SELECT title, author FROM books WHERE first_published BETWEEN 1800 AND 1899;    -- lower value always first
+    SELECT * FROM loans WHERE loaned_on BETWEEN "2015-12-13" AND "2015-12-19";    -- you can do dates as well
+
+-- Syntax for searching with patterns
+-- SELECT <columns> FROM <table> WHERE <column> LIKE "<pattern>";
+-- % is the wildcard for patterns
+
+    SELECT title FROM books WHERE title LIKE "Harry Potter%";
+    SELECT title FROM books WHERE title LIKE "%Martian";
+    SELECT title FROM books WHERE title LIKE "%universe%" AND genre = "Non Fiction";     -- matches exactly (case sensitive)
+    SELECT title FROM books WHERE title LIKE "%universe%" AND genre LIKE "non fiction";     -- matches all (not case sensitive)
+
+
+--- What are the loans that are due back after December 18th 2015?
+
+    SELECT * FROM loans WHERE return_by > "2015-12-18" AND returned_on IS NULL;
+
+--- What are the loans that have been returned already?
+
+    SELECT * FROM loans WHERE return_by > "2015-12-18" AND returned_on IS NOT NULL;
+
+-- Who is user 4?
+
+    SELECT first_name, email FROM patrons WHERE id = 4;
+
+
+-- Syntax for multiple database
+-- SELECT <columns> FROM <table1>, <table2> WHERE <table1>.<columns> = <table2>.<columns>;
+
+    SELECT columns FROM table1, table2 WHERE table1.columns = table2.columns;
+
+
+----- ### Modifying Data with SQL
+
+
+-- CRUD MEANING
+
+    -- Create = INSERT
+    -- Read = SELECT
+    -- Update = UPDATE
+    -- Delete = DELETE
+
+--- INSERT INTO <table> VALUES (<value 1>, <value 2>...);
+
+    INSERT INTO books VALUES (16, "1984", "George Orwell", "Fiction", 1949);
+
+    INSERT INTO books (title, author, genre, first_published) VALUES ("The Circle", "Dave Eggers", "Science Fiction", 2013);
+    INSERT INTO books (title, author, genre, first_published) VALUES ("Contact", "Carl Sagan", "Science Fiction", 1985);
+    INSERT INTO books (title, author, genre, first_published) VALUES ("Animal Farm", "George Orwell", NULL, 1945);
+
+    INSERT INTO books
+                (title, author, genre, first_published)
+         VALUES ("The Circle", "Dave Eggers", "Science Fiction", 2013),
+                ("Contact", "Carl Sagan", "Science Fiction", 1985),
+                ("Animal Farm", "George Orwell", NULL, 1945);
+
+    INSERT INTO actors VALUES (NULL, "Mark Hapka"), (NULL, "Jessica Rothe"), (NULL, "Eric Jungmann"), (NULL, "Constance Wu")
+
+    INSERT INTO reviews VALUES (NULL, 11, "gstylez", "This movie is awesome!!", 10)
+
+-- UPDATE <table> SET <column>=<value>;
+
+    UPDATE patrons SET last_name = "Anonymos";
+
+-- UPDATE <table> SET <column 1>=<value 1>, <column 2>=<value 2>;
+
+    UPDATE patrons SET email = "test@tester.com", zip_code = 55555;
+
+-- UPDATE <table> SET <column> = <value> WHERE <condition>;
+
+    SELECT * FROM books WHERE id = 20;
+    UPDATE books SET genre = "Classic" WHERE id = 20;
+
+    UPDATE loans SET returned_on = "2015-12-18"
+      WHERE patron_id = 1
+      AND returned_on IS NULL
+      AND book_id IN (4, 8);
+
+-- DELETE FROM <table>;
+
+    DELETE FROM books; -- always backup before deleting
+
+-- DELETE FROM <table> WHERE <condition>;
+
+    DELETE FROM patrons WHERE id = 4; -- always backup before deleting
+
+
+-- TRANSACTIONS
+
+BEGIN;
+UPDATE picker SET branch = "Preview 1", developer = "Carlos" WHERE id = 1;
+UPDATE picker SET branch = "Preview 2", developer = "Divya" WHERE id = 2;
+UPDATE picker SET branch = "Preview 3", developer = "Warren" WHERE id = 3;
+UPDATE picker SET branch = "Preview 4", developer = "Amanda" WHERE id = 4;
+UPDATE picker SET branch = "Preview 5", developer = "Julie" WHERE id = 5;
+COMMIT;

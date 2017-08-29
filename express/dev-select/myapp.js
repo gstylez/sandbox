@@ -34,7 +34,7 @@ app.get('/person', function(req, res) {
 	connection.connect();
 
 	// Do the query to get data.
-	connection.query('SELECT * FROM test', function(err, rows, fields) {
+	connection.query('SELECT branch, developer, active, expires FROM picker', function(err, rows, fields) {
 	  	if (err) {
 	  		res.status(500).json({"status_code": 500,"status_message": "internal server error"});
 	  	} else {
@@ -43,10 +43,10 @@ app.get('/person', function(req, res) {
 
 	  			// Create an object to save current row's data
 		  		var person = {
-		  			'name':rows[i].name,
-		  			'address':rows[i].address,
-		  			'phone':rows[i].phone,
-		  			'id':rows[i].id
+		  			'branch':rows[i].branch,
+		  			'developer':rows[i].developer,
+		  			'active':rows[i].active,
+		  			'expires':rows[i].expires
 		  		}
 		  		// Add object into array
 		  		personList.push(person);
